@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manhwa Recommendations</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+      color: #333;
+    }
+    header {
+      background: #111;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+    }
+    .search-box {
+      margin: 20px auto;
+      text-align: center;
+    }
+    .search-box input {
+      padding: 10px;
+      width: 70%;
+      border-radius: 8px;
+      border: 1px solid #aaa;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card h3 {
+      margin-top: 0;
+    }
+    .tag {
+      display: inline-block;
+      background: #007bff;
+      color: white;
+      padding: 2px 8px;
+      margin: 3px;
+      border-radius: 5px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🔥 Manhwa Recommendations 🔥</h1>
+    <p>Discover the best manhwas to read</p>
+  </header>
+
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Search manhwa by name or genre...">
+  </div>
+
+  <div class="container" id="manhwa-list"></div>
+
+  <script>
+    const manhwas = [
+      { 
+        title: "Solo Leveling", 
+        desc: "Weak hunter Sung Jin-Woo gets a chance to level up endlessly.", 
+        tags: ["Action", "Fantasy", "Overpowered"]
+      },
+      { 
+        title: "Omniscient Reader", 
+        desc: "Kim Dokja’s world turns into the novel he read for years.", 
+        tags: ["Survival", "Fantasy", "Psychological"]
+      },
+      { 
+        title: "Tower of God", 
+        desc: "A boy enters the mysterious Tower to find his best friend.", 
+        tags: ["Adventure", "Fantasy", "Mystery"]
+      },
+      { 
+        title: "The Breaker", 
+        desc: "A bullied student meets a martial arts master.", 
+        tags: ["Martial Arts", "Action", "School"]
+      },
+      { 
+        title: "Eleceed", 
+        desc: "A kind boy with lightning powers and his talking cat mentor.", 
+        tags: ["Action", "Comedy", "Supernatural"]
+      },
+      { 
+        title: "Nano Machine", 
+        desc: "A prince gains futuristic nanotech to survive martial arts world.", 
+        tags: ["Martial Arts", "Sci-Fi", "Revenge"]
+      }
+    ];
+
+    const list = document.getElementById("manhwa-list");
+
+    function displayManhwas(data) {
+      list.innerHTML = "";
+      data.forEach(m => {
+        list.innerHTML += `
+          <div class="card">
+            <h3>${m.title}</h3>
+            <p>${m.desc}</p>
+            <div>${m.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}</div>
+          </div>
+        `;
+      });
+    }
+
+    displayManhwas(manhwas);
+
+    // Search filter
+    document.getElementById("search").addEventListener("input", function() {
+      const value = this.value.toLowerCase();
+      const filtered = manhwas.filter(m => 
+        m.title.toLowerCase().includes(value) || 
+        m.tags.join(" ").toLowerCase().includes(value)
+      );
+      displayManhwas(filtered);
+    });
+  </script>
+
+</body>
+</html>
